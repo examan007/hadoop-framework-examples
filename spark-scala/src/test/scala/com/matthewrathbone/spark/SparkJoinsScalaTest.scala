@@ -26,7 +26,9 @@ class SparkJoinsScalaTest extends AssertionsForJUnit {
   @Test
   def testExamleJobCode() {
     val job = new ExampleJob(sc)
-    val result = job.run("./transactions.txt", "./users.txt")
+    val base = new java.io.File(".").getCanonicalPath
+    val path = base + "/src/test/scala/com/matthewrathbone/spark/";
+    val result = job.run(path + "transactions.txt", path + "users.txt")
     assert(result.collect()(0)._1 === "1")
     assert(result.collect()(0)._2 === "3")
     assert(result.collect()(1)._1 === "2")
